@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分数统计</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    #output {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>分数统计</h1>
+
+  <form id="scoreForm">
+    <label for="name">姓名:</label>
+    <input type="text" id="name" required>
+
+    <label for="major">专业:</label>
+    <select id="major" required>
+        <option value="信院-080902电路与系统">信院-080902电路与系统</option>
+        <option value="信院-080903微电子学与固体电子学">信院-080903微电子学与固体电子学</option>
+        <option value="信院-081000信息与通信工程">信院-081000信息与通信工程</option>
+        <option value="信院-081101控制理论与控制工程">信院-081101控制理论与控制工程</option>
+        <option value="信院-082302交通信息工程及控制">信院-082302交通信息工程及控制</option>
+        <option value="信院-083900网络空间安全">信院-083900网络空间安全</option>
+        <option value="信院-085402通信工程">信院-085402通信工程</option>
+        <option value="信院-085403集成电路工程">信院-085403集成电路工程</option>
+        <option value="信院-085404计算机技术">信院-085404计算机技术</option>
+        <option value="信院-085406控制工程">信院-085406控制工程</option>
+        <option value="信院-085408光电信息工程">信院-085408光电信息工程</option>
+        <option value="信院-085410人工智能">信院-085410人工智能</option>
+        <option value="信院-085412网络与信息安全">信院-085412网络与信息安全</option>
+        <option value="信院-086100交通运输">信院-086100交通运输</option>
+        <option value="计院-081200计算机科学与技术">计院-081200计算机科学与技术</option>
+        <option value="计院-083500软件工程">计院-083500软件工程</option>
+        <option value="计院-085404计算机技术">计院-085404计算机技术</option>
+        <option value="计院-085405软件工程">计院-085405软件工程</option>
+        <option value="计院-085410人工智能">计院-085410人工智能</option>
+        <option value="唐院-085404计算机技术">唐院-085404计算机技术</option>
+        <option value="联合-085401新一代电子信息技术">联合-085401新一代电子信息技术</option>
+        <option value="联合-085403集成电路工程">联合-085403集成电路工程</option>
+        <option value="联合-085404计算机技术">联合-085404计算机技术</option>
+        <option value="联合-085405软件工程">联合-085405软件工程</option>
+        <option value="宜宾-085404计算机技术">宜宾-085404计算机技术</option>
+      <!-- 添加更多专业选项 -->
+    </select>
+
+    <label for="score">总分:</label>
+    <input type="number" id="score" required min="200" max="500">
+
+    <button type="button" onclick="submitScore()">提交分数</button>
+  </form>
+
+  <div id="output">
+    <h2>选择专业排名</h2>
+    <label for="selectMajor">选择专业：</label>
+    <select id="selectMajor" onchange="updateScoreList()">
+        <option value="信院-080902电路与系统">信院-080902电路与系统</option>
+        <option value="信院-080903微电子学与固体电子学">信院-080903微电子学与固体电子学</option>
+        <option value="信院-081000信息与通信工程">信院-081000信息与通信工程</option>
+        <option value="信院-081101控制理论与控制工程">信院-081101控制理论与控制工程</option>
+        <option value="信院-082302交通信息工程及控制">信院-082302交通信息工程及控制</option>
+        <option value="信院-083900网络空间安全">信院-083900网络空间安全</option>
+        <option value="信院-085402通信工程">信院-085402通信工程</option>
+        <option value="信院-085403集成电路工程">信院-085403集成电路工程</option>
+        <option value="信院-085404计算机技术">信院-085404计算机技术</option>
+        <option value="信院-085406控制工程">信院-085406控制工程</option>
+        <option value="信院-085408光电信息工程">信院-085408光电信息工程</option>
+        <option value="信院-085410人工智能">信院-085410人工智能</option>
+        <option value="信院-085412网络与信息安全">信院-085412网络与信息安全</option>
+        <option value="信院-086100交通运输">信院-086100交通运输</option>
+        <option value="计院-081200计算机科学与技术">计院-081200计算机科学与技术</option>
+        <option value="计院-083500软件工程">计院-083500软件工程</option>
+        <option value="计院-085404计算机技术">计院-085404计算机技术</option>
+        <option value="计院-085405软件工程">计院-085405软件工程</option>
+        <option value="计院-085410人工智能">计院-085410人工智能</option>
+        <option value="唐院-085404计算机技术">唐院-085404计算机技术</option>
+        <option value="联合-085401新一代电子信息技术">联合-085401新一代电子信息技术</option>
+        <option value="联合-085403集成电路工程">联合-085403集成电路工程</option>
+        <option value="联合-085404计算机技术">联合-085404计算机技术</option>
+        <option value="联合-085405软件工程">联合-085405软件工程</option>
+        <option value="宜宾-085404计算机技术">宜宾-085404计算机技术</option>
+      <!-- 添加更多专业选项 -->
+    </select>
+
+    <h2>分数排名</h2>
+    <ul id="scoreList"></ul>
+  </div>
+
+  <script>
+    function submitScore() {
+      var name = document.getElementById('name').value;
+      var major = document.getElementById('major').value;
+      var score = parseInt(document.getElementById('score').value);
+
+      // 验证总分是否在200到500之间
+      if (score < 200 || score > 500) {
+        alert("总分必须在200到500之间");
+        return;
+      }
+
+      // 发送POST请求到服务器
+      fetch('http://localhost:3000/submitScore', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, major, score }),
+      })
+      
+      updateScoreList();
+    }
+
+    function updateScoreList() {
+      var selectedMajor = document.getElementById('selectMajor').value;
+
+      // 发送GET请求到服务器
+      fetch('http://localhost:3000/getScores')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('网络请求失败');
+        }
+        return response.json();
+      })
+      .then(data => {
+        var scores = data.scores;
+        var filteredData = scores.filter(function(item) {
+          return selectedMajor === 'all' || item.split(',')[1] === selectedMajor;
+        });
+
+        filteredData.sort(function(a, b) {
+          return parseInt(b.split(',')[2]) - parseInt(a.split(',')[2]);
+        });
+
+        var scoreList = document.getElementById('scoreList');
+        scoreList.innerHTML = '';
+
+        for (var i = 0; i < filteredData.length; i++) {
+          var listItem = document.createElement('li');
+          var parts = filteredData[i].split(',');
+          listItem.textContent = parts[0] + ' - ' + parts[1] + ': ' + parts[2] + ' 分';
+          scoreList.appendChild(listItem);
+        }
+      })
+    }
+
+    // 初始化页面时更新分数排名
+    updateScoreList();
+  </script>
+
+</body>
+</html>
