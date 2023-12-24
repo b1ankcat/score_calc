@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const port = 80;
+const store = []
 
 // 启用 CORS 中间件
 
@@ -31,25 +32,13 @@ app.post('/submitScore', (req, res) => {
   }
 
   // 将数据追加到store.txt文件
-  const data = `${name},${major},${score}\n`;
-  fs.appendFile('store.txt', data, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("服务器错误");
-    }
-  });
+  store.push({ name: name, major: major, score: score });
+
 });
 
 app.get('/getScores', (req, res) => {
   // 读取store.txt文件中的数据并返回
-  fs.readFile('store.txt', 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("服务器错误");
-    }
-    const scores = data.split('\n').filter(Boolean);
-    res.status(200).json({ scores });
-  });
+  res.status(200).json({ store });
 });
 
 app.listen(port, () => {
