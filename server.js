@@ -3,7 +3,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 3000;
+const port = 80;
 
 // 启用 CORS 中间件
 
@@ -13,6 +13,14 @@ app.use(express.static('public'));
 // 使用body-parser中间件解析POST请求体
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// 处理 / 根请求
+app.get('/', (req, res) => {
+
+  const filePath = __dirname + '/public/index.html';
+
+  res.sendFile(filePath);
+});
 
 app.post('/submitScore', (req, res) => {
   const { name, major, score } = req.body;
@@ -47,5 +55,3 @@ app.get('/getScores', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
-
-module.exports = app;odule.exports = app;
