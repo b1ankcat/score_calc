@@ -108,7 +108,7 @@
       }
 
       // 发送POST请求到服务器
-      fetch('http://localhost:80/submitScore', {
+      fetch('/submitScore', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -123,7 +123,7 @@
       var selectedMajor = document.getElementById('selectMajor').value;
 
       // 发送GET请求到服务器
-      fetch('http://localhost:80/getScores')
+      fetch('/getScores')
       .then(response => {
         if (!response.ok) {
           throw new Error('网络请求失败');
